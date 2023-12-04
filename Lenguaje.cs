@@ -75,28 +75,55 @@ namespace Generador
             else if (getClasificacion() == Tipos.Epsilon)
             {
                 match(Tipos.Epsilon);
+                match(Tipos.PIzq);
                 string simbolo = getContenido();
                 if (esPalabraReservada(simbolo))
                 {
-                    match(Tipos.SNT);
-                    generado.WriteLine("            if (getClasificacion() == Tipos."+simbolo+")");
+                    generado.WriteLine("            if (getClasificacion() == Tipos." + simbolo + ")");
                     generado.WriteLine("            {");
                     generado.WriteLine("                match(Tipos." + simbolo + ");");
-                
+                    match(Tipos.SNT);
+                }
+                else if (getClasificacion() == Tipos.ST)
+                {
+                    generado.WriteLine("            if (getContenido() == \"" + simbolo + "\")");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + simbolo + "\");");
+                    match(Tipos.ST);
                 }
                 else
                 {
-                    generado.WriteLine("            if (getContenido() == \""+simbolo+"\")");
-                    match(Tipos.ST);
-                    generado.WriteLine("            {");
-                    generado.WriteLine("                match(\"" + simbolo + "\");");
-                
+                    throw new Error("No puedes comparar el método " + getContenido() + "() en la", log, linea, columna);
                 }
+                masSimbolosEps();
+                match(Tipos.PDer);
                 generado.WriteLine("            }");
             }
             if (getClasificacion() != Tipos.FinProduccion)
             {
                 listaSimbolos();
+            }
+        }
+        private void masSimbolosEps()
+        {
+            if (esPalabraReservada(getContenido()))
+            {
+                generado.WriteLine("                match(Tipos." + getContenido() + ");");
+                match(Tipos.SNT);
+            }
+            else if (getClasificacion() == Tipos.ST)
+            {
+                generado.WriteLine("                match(\"" + getContenido() + "\");");
+                match(Tipos.ST);
+            }
+            else if (getClasificacion() == Tipos.SNT)
+            {
+                generado.WriteLine("                " + getContenido() + "();");
+                match(Tipos.SNT);
+            }
+            if (getClasificacion() != Tipos.PDer)
+            {
+                masSimbolosEps();
             }
         }
         private bool esPalabraReservada(string palabra)
