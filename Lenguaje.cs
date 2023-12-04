@@ -11,12 +11,10 @@ namespace Generador
     {
         public Lenguaje()
         {
-
         }
         public Lenguaje(string nombre) : base(nombre)
         {
         }
-
         public void generaLenguaje()
         {
 
