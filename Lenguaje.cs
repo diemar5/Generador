@@ -98,6 +98,33 @@ namespace Generador
                 match(Tipos.PDer);
                 generado.WriteLine("            }");
             }
+            else if (getClasificacion() == Tipos.Or)
+            {
+                match(Tipos.Or);
+                match(Tipos.PIzq);
+                string caracter = getContenido();
+                if (esPalabraReservada(caracter))
+                {
+                    generado.WriteLine("            if (getClasificacion() == Tipos." + caracter + ")");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(Tipos." + caracter + ");");
+                    match(Tipos.SNT);
+                    generado.WriteLine("            }");
+                }
+                else if (getClasificacion() == Tipos.ST)
+                {
+                    generado.WriteLine("            if (getContenido() == \"" + caracter + "\")");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + caracter + "\");");
+                    match(Tipos.ST);
+                    generado.WriteLine("            }");
+                }
+                else
+                {
+                    throw new Error("No puedes comparar el método " + getContenido() + "() en la", log, linea, columna);
+                }
+                match(Tipos.PDer);
+            }
             if (getClasificacion() != Tipos.FinProduccion)
             {
                 listaSimbolos();
