@@ -123,6 +123,7 @@ namespace Generador
                 {
                     throw new Error("No puedes comparar el método " + getContenido() + "() en la", log, linea, columna);
                 }
+                masSimbolosOr();
                 match(Tipos.PDer);
             }
             if (getClasificacion() != Tipos.FinProduccion)
@@ -150,6 +151,35 @@ namespace Generador
             if (getClasificacion() != Tipos.PDer)
             {
                 masSimbolosEps();
+            }
+        }
+        private void masSimbolosOr()
+        {
+            if (esPalabraReservada(getContenido()))
+            {
+                generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
+                generado.WriteLine("            {");
+                generado.WriteLine("                match(\"" + getContenido() + "\");");
+                match(Tipos.SNT);
+                generado.WriteLine("            }");
+            }
+
+            else if (getClasificacion() == Tipos.ST)
+            {
+                generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
+                generado.WriteLine("            {");
+                generado.WriteLine("                match(\"" + getContenido() + "\");");
+                match(Tipos.ST);
+                generado.WriteLine("            }");
+
+            }
+            else if (getClasificacion() == Tipos.SNT)
+            {
+                throw new Error("No puedes comparar el método " + getContenido() + "() en la", log, linea, columna);
+            }
+            if (getClasificacion() != Tipos.PDer)
+            {
+                masSimbolosOr();
             }
         }
         private bool esPalabraReservada(string palabra)
