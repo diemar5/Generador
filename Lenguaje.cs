@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
@@ -17,7 +18,6 @@ namespace Generador
         }
         public void generaLenguaje()
         {
-
             generado.WriteLine("using System;");
             generado.WriteLine("using System.Collections.Generic;");
             generado.WriteLine("using System.Linq;");
@@ -69,7 +69,7 @@ namespace Generador
             }
             else if (getClasificacion() == Tipos.SNT)
             {
-                generado.WriteLine("            " + getContenido() + "();");
+                generado.WriteLine("                " + getContenido() + "();");
                 match(Tipos.SNT);
             }
             else if (getClasificacion() == Tipos.Epsilon)
@@ -154,8 +154,5 @@ namespace Generador
             }
             return false;
         }
-        /*
-            
-        */
     }
 }
