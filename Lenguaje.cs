@@ -157,21 +157,41 @@ namespace Generador
         {
             if (esPalabraReservada(getContenido()))
             {
-                generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
-                generado.WriteLine("            {");
-                generado.WriteLine("                match(\"" + getContenido() + "\");");
-                match(Tipos.SNT);
-                generado.WriteLine("            }");
+                if (getClasificacion() == Tipos.PDer)
+                {
+                    generado.WriteLine("            else");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + getContenido() + "\");");
+                    match(Tipos.SNT);
+                    generado.WriteLine("            }");
+                }
+                else
+                {
+                    generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + getContenido() + "\");");
+                    match(Tipos.SNT);
+                    generado.WriteLine("            }");
+                }
             }
-
             else if (getClasificacion() == Tipos.ST)
             {
-                generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
-                generado.WriteLine("            {");
-                generado.WriteLine("                match(\"" + getContenido() + "\");");
-                match(Tipos.ST);
-                generado.WriteLine("            }");
-
+                if (getClasificacion() == Tipos.PDer)
+                {
+                    generado.WriteLine("            else");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + getContenido() + "\");");
+                    match(Tipos.ST);
+                    generado.WriteLine("            }");
+                }
+                else
+                {
+                    generado.WriteLine("            else if (getClasificacion() == Tipos." + getContenido() + ")");
+                    generado.WriteLine("            {");
+                    generado.WriteLine("                match(\"" + getContenido() + "\");");
+                    match(Tipos.ST);
+                    generado.WriteLine("            }");
+                }
             }
             else if (getClasificacion() == Tipos.SNT)
             {

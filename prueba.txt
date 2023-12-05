@@ -1,7 +1,7 @@
 Programa -> Librerias Main \;
 Librerias -> #include <Identificador.h> 
                 \? \(Cadena include Main\) 
-                \| \(Cadena include #\)
+                \| \(Cadena include \)
                 \| \(include main\) 
              #\; 
 Main -> void main()
