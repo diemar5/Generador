@@ -153,6 +153,7 @@ namespace Generador
                 masSimbolosEps();
             }
         }
+
         private void masSimbolosOr()
         {
             if (esPalabraReservada(getContenido()))
