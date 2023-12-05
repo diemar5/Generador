@@ -30,7 +30,6 @@ namespace Generador
             generado.WriteLine("    {");
             generado.WriteLine("        public Lenguaje()");
             generado.WriteLine("        {");
-
             generado.WriteLine("        }");
             generado.WriteLine("        public Lenguaje(string nombre) : base(nombre)");
             generado.WriteLine("        {");
